@@ -1,7 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 require("config.lazy")
-require('colors.scheme').setup()
 local opt = vim.opt
 vim.g.have_nerd_font = true
 
@@ -33,7 +32,7 @@ opt.splitright = true
 opt.splitbelow = true
 
 opt.termguicolors = true
-opt.background = "dark"
+-- opt.background = "dark"
 
 opt.backspace = "indent,eol,start"
 
@@ -45,8 +44,11 @@ opt.cursorline = true
 
 opt.scrolloff = 10
 
--- opt.spellang = "es"
--- opt.spell = true
+opt.spelllang = "es"
+opt.spell = false
+-- COLORSCHEME
+--
+--
 
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
@@ -86,15 +88,25 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to lower window"
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to upper window" })
 vim.keymap.set("n", "<leader>q", ":w<CR>:Ex<CR>", { desc = "Save and open file explorer" })
 
+-- vim.keymap.set("n", "<C-q>", function()
+-- 	local win_count = vim.fn.winnr("$")
+-- 	if win_count > 1 then
+-- 		vim.cmd("write")
+-- 		vim.cmd("close")
+-- 	else
+-- 		vim.cmd("Ex")
+-- 	end
+-- end, { desc = "Close split or open file explorer if last window" })
+
 vim.keymap.set("n", "<C-q>", function()
 	local win_count = vim.fn.winnr("$")
 	if win_count > 1 then
 		vim.cmd("write")
 		vim.cmd("close")
 	else
-		vim.cmd("Ex")
+		vim.cmd("Oil")
 	end
-end, { desc = "Close split or open file explorer if last window" })
+end)
 
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move current line down" })
 vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move current line up" })
@@ -107,3 +119,9 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down half page and cent
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up half page and center" })
 vim.keymap.set("n", "<C-f>", "<C-f>zz", { desc = "Scroll down full page and center" })
 vim.keymap.set("n", "<C-b>", "<C-b>zz", { desc = "Scroll up full page and center" })
+vim.keymap.set("n","<leader>z",":ZenMode<CR>")
+
+local function toggle_spell()
+    vim.wo.spell = not vim.wo.spell
+end
+vim.keymap.set("n","<leader>sc",toggle_spell)
