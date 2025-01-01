@@ -52,11 +52,58 @@ return {
     vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
     vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[S]earch [F]iles" })
     vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
+    local function search_tag()
+      -- Get the word under the cursor or selection
+      local word = vim.fn.expand("<cword>")
+
+      -- Prepend '#' to the word
+      local search_string = "[[" .. word .. "]]"
+
+      -- Call grep_string with the modified search string
+      require('telescope.builtin').grep_string({ search = search_string })
+    end
+    vim.keymap.set("n", "<leader>fk", search_tag, { desc = "[S]earch current [W]ord" })
     vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
     vim.keymap.set("n", "<leader>f.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
     vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>")
     vim.keymap.set("n", "<leader><leader>", function()
       builtin.buffers({ initial_mode = "normal" })
     end, { desc = "[ ] Find existing buffers" })
+
+    -- Slightly advanced example of overriding default behavior and theme
+    vim.keymap.set("n", "<leader>/", function()
+      -- You can pass additional configuration to Telescope to change the theme, layout, etc.
+      builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+        winblend = 10,
+        previewer = false,
+      }))
+    end, { desc = "[/] Fuzzily search in current buffer" })
+
+    -- It's also possible to pass additional configuration options.
+    --  See `:help telescope.builtin.live_grep()` for information about particular keys
+    vim.keymap.set("n", "<leader>f/", function()
+      builtin.live_grep({
+        grep_open_files = true,
+        prompt_title = "Live Grep in Open Files",
+      })
+    end, { desc = "[S]earch [/] in Open Files" })
+
+    -- Shortcut for searching your Neovim configuration files
+    vim.keymap.set("n", "<leader>fn", function()
+      builtin.find_files({ cwd = vim.fn.stdpath("config") })
+    end, { desc = "[S]earch [N]eovim files" })
+
+    vim.keymap.set("n", "<leader>fo", function()
+      builtin.find_files({
+        prompt_title = "Find in Notes",
+        cwd = "/Users/fo/notes",
+      })
+    end)
+    vim.keymap.set("n", "<leader>fp", function()
+      builtin.live_grep({
+        prompt_title = "Live Grep in Notes",
+        cwd = "/Users/fo/notes",
+      })
+    end, { desc = "[S]earch [/] in Open Files" })
   end,
 }

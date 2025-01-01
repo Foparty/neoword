@@ -1,13 +1,44 @@
+local pencil = false -- State to track whether the mapping is active
+
+local function toggle_pencil()
+  if pencil then
+    -- Reset to normal behavior
+    vim.keymap.del('n', 'j')
+    vim.keymap.del('n', 'k')
+    vim.keymap.del('v', 'j')
+    vim.keymap.del('v', 'k')
+    print("Normal j/k movement restored")
+  else
+    -- Map j to gj and k to gk
+    vim.keymap.set({ 'n', 'v' }, 'j', 'gj')
+    vim.keymap.set({ 'n', 'v' }, 'k', 'gk')
+    print("Using gj/gk for j/k movement")
+  end
+  pencil = not pencil
+end
+
+-- Map a key to toggle the movement behavior
+vim.keymap.set('n', '<leader>tp', toggle_pencil, { desc = 'Toggle j/k to gj/gk' })
+--
+
 -- Keymap for global search and replace of word under cursor
 vim.keymap.set(
   "n",
   "<leader>s",
   [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>]],
-  { desc = "Replace word under cursor globally" }
+  { desc = "Replace same word under cursor in the entire document" }
 )
 
+vim.keymap.set(
+  "n",
+  "<leader>ca",
+  [[:cfdo %s/\<<C-r><C-w>\>/<C-r><C-w>/gc | update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
+  { desc = "Replace same word under cursor in the entire document" }
+)
 -- Open file explorer
-vim.keymap.set("n", "<leader>e", ":Ex<CR>", { desc = "Open file explorer" })
+-- NOTE: this is without Oil.nvim
+-- vim.keymap.set("n", "<leader>e", ":Ex<CR>", { desc = "Open file explorer" })
+vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Open file explorer" })
 
 -- Format the current buffer using LSP
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.format, { desc = "Format current buffer" })
@@ -40,7 +71,9 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to lower window"
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to upper window" })
 
 -- Save and then open file explorer
-vim.keymap.set("n", "<leader>q", ":w<CR>:Ex<CR>", { desc = "Save and open file explorer" })
+-- NOTE: this will only work without Oil.nvim
+-- vim.keymap.set("n", "<leader>q", ":w<CR>:Ex<CR>", { desc = "Save and open file explorer" })
+vim.keymap.set("n", "<leader>q", ":w<CR>:Oil<CR>", { desc = "Save and open file explorer" })
 
 -- Close split or open file explorer if it's the last window
 vim.keymap.set("n", "<C-q>", function()
@@ -76,4 +109,4 @@ vim.keymap.set("n", "<leader>z", ":ZenMode<CR>", { desc = "Enter Zen Mode" })
 local function toggle_spell()
   vim.wo.spell = not vim.wo.spell -- Toggle spell checking for the current window
 end
-vim.keymap.set("n", "<leader>sc", toggle_spell, { desc = "Toggle spell check" })
+vim.keymap.set("n", "<leader>c", toggle_spell, { desc = "Toggle spell check" })
