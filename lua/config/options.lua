@@ -59,8 +59,8 @@ opt.cursorline = true -- Highlight the current line
 opt.scrolloff = 10 -- Keep 10 lines of context around the cursor
 
 -- Spell checking
-opt.spelllang = "es" -- Use Spanish for spell checking
-opt.spell = false    -- Disable spell checking by default
+opt.spelllang = "en_us" -- Use Spanish for spell checking
+opt.spell = false       -- Disable spell checking by default
 
 -- Autocommand to highlight text when yanked (copied)
 vim.api.nvim_create_autocmd("TextYankPost", {
