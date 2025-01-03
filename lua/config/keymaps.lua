@@ -10,8 +10,8 @@ local function toggle_pencil()
     print("Normal j/k movement restored")
   else
     -- Map j to gj and k to gk
-    vim.keymap.set({ 'n', 'v' }, 'j', 'gj')
-    vim.keymap.set({ 'n', 'v' }, 'k', 'gk')
+    vim.keymap.set({ 'n', 'v' }, 'j', 'gjzz')
+    vim.keymap.set({ 'n', 'v' }, 'k', 'gkzz')
     print("Using gj/gk for j/k movement")
   end
   pencil = not pencil
@@ -95,7 +95,12 @@ vim.keymap.set("v", "<A-k>", ":m '>+1<CR>gv=gv", { desc = "Move selected lines u
 -- Search result navigation with centering
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result and center" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result and center" })
-
+vim.keymap.set('n', 'j', 'jzz')
+vim.keymap.set('n', 'k', 'kzz')
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', '<C-f>', '<C-f>zz')
+vim.keymap.set('n', '<C-b>', '<C-b>zz')
 -- Scrolling with centering
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down half page and center" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up half page and center" })
@@ -110,3 +115,29 @@ local function toggle_spell()
   vim.wo.spell = not vim.wo.spell -- Toggle spell checking for the current window
 end
 vim.keymap.set("n", "<leader>c", toggle_spell, { desc = "Toggle spell check" })
+
+local function create_file_at_root()
+  -- Get the project root. This might need adjustment based on how you define 'project root'
+  local project_root = vim.fn.getcwd()
+
+  -- Prompt for filename
+  vim.ui.input({ prompt = 'Enter filename: ' }, function(input)
+    if input then
+      local filepath = project_root .. '/' .. input
+      -- Create the file
+      local file = io.open(filepath, "w")
+      if file then
+        file:close()
+        -- Open the newly created file
+        vim.cmd('e ' .. filepath)
+      else
+        print("Failed to create file: " .. filepath)
+      end
+    end
+  end)
+end
+
+-- Map this function to a command or keybinding
+vim.api.nvim_create_user_command('NewFileAtRoot', create_file_at_root, {})
+-- Or as a keybinding
+vim.keymap.set('n', '<leader>n', create_file_at_root, { desc = 'Create new file at project root' })
