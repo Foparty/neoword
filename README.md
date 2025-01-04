@@ -40,6 +40,11 @@ caca
 - [ ]
 
 
+**not saying it has to happend but ok
+so ** so *so what is here*
+
+_so what is here_
+!**!
 ## fold 1
 
 asdfqwfeo kasdfasdf asdf aspdfja sdfpasdof 
@@ -47,3 +52,20 @@ asdfqwfeo kasdfasdf asdf aspdfja sdfpasdof
 ## fold 2
 
 loasdaofd afaosdfja sodfjasdofjaosdfj aofasdfas df
+
+
+1. caca de la vaca
+2. pis de moris:
+    I. eso hay que verlo
+    II. y parece que si
+    III. la leche paco
+    IV.  pipir
+    V.   pala
+    VI.  
+
+
+### y aqui van mas cosas
+
+por ejemplo texto
+
+## y si sigo aqui pues seguimos flipando
