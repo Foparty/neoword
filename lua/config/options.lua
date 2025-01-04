@@ -70,3 +70,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.highlight.on_yank() -- Highlight the text that was just yanked
   end,
 })
+-- markdown specific
+-- BUG: can't make it too work without auto folding witch is very anoying
+vim.g.markdown_folding_disabled = 0
+vim.g.vim_markdown_folding_disabled = 1
+vim.g.foldmethod = 'manual'
