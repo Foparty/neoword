@@ -38,7 +38,7 @@ vim.keymap.set(
 -- Open file explorer
 -- NOTE: this is without Oil.nvim
 -- vim.keymap.set("n", "<leader>e", ":Ex<CR>", { desc = "Open file explorer" })
-vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Open file explorer" })
+vim.keymap.set("n", "<leader>e", ":w<CR>:Oil<CR>", { desc = "Open file explorer" })
 
 -- Format the current buffer using LSP
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.format, { desc = "Format current buffer" })
@@ -62,7 +62,7 @@ vim.keymap.set("n", "<left>", ":w<CR>", { desc = "Save current file" }) -- Corre
 vim.keymap.set("n", "<leader>k", ":bd!<CR>", { desc = "Kill current buffer" })
 
 -- Save all and quit
-vim.keymap.set("n", "<leader>x", ":wqa!<CR>", { desc = "Save all and quit" })
+vim.keymap.set("n", "<leader>q", ":wqa!<CR>", { desc = "Save all and quit" })
 
 -- Navigation between windows
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to left window" })
@@ -70,10 +70,6 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to right window"
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to upper window" })
 
--- Save and then open file explorer
--- NOTE: this will only work without Oil.nvim
--- vim.keymap.set("n", "<leader>q", ":w<CR>:Ex<CR>", { desc = "Save and open file explorer" })
-vim.keymap.set("n", "<leader>q", ":w<CR>:Oil<CR>", { desc = "Save and open file explorer" })
 
 -- Close split or open file explorer if it's the last window
 vim.keymap.set("n", "<C-q>", function()
@@ -95,8 +91,6 @@ vim.keymap.set("v", "<A-k>", ":m '>+1<CR>gv=gv", { desc = "Move selected lines u
 -- Search result navigation with centering
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result and center" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result and center" })
-vim.keymap.set('n', 'j', 'jzz')
-vim.keymap.set('n', 'k', 'kzz')
 -- Scrolling with centering
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down half page and center" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up half page and center" })
@@ -111,3 +105,28 @@ local function toggle_spell()
   vim.wo.spell = not vim.wo.spell -- Toggle spell checking for the current window
 end
 vim.keymap.set("n", "<leader>c", toggle_spell, { desc = "Toggle spell check" })
+vim.keymap.set("n", "<leader>tc", '<cmd>Toc<CR>', { desc = "Open table of content on md" })
+
+-- new file in root
+--
+local function create_and_open_file_in_root()
+  -- Find the project root (example using vim-rooter or similar functionality)
+  local root_dir = vim.fn.getcwd() -- or use some other method to find project root
+
+  -- Prompt for filename
+  local filename = vim.fn.input("Enter filename: ")
+
+  -- Construct full path for the new file
+  local full_path = vim.fn.fnamemodify(root_dir .. "/" .. filename, ":p")
+
+  -- Open the file in a new buffer
+  vim.cmd("edit " .. full_path)
+
+  -- Enter insert mode
+  vim.cmd("startinsert")
+end
+
+-- Map the function to a key, e.g., <leader>nf for "new file"
+vim.keymap.set('n', '<leader>nf', create_and_open_file_in_root,
+  { noremap = true, silent = true, desc = "Create and open new file in project root" })
+vim.keymap.set('n', '<Esc><Esc>', ':Alpha<CR>')
