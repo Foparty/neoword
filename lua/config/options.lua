@@ -6,9 +6,10 @@ vim.g.maplocalleader = " " -- Set space as the local leader key
 vim.g.have_nerd_font = true -- We have nerd fonts installed
 
 -- Netrw (file explorer) settings
-vim.g.netrw_banner = 0    -- Hide the banner in netrw
-vim.g.netrw_liststyle = 3 -- Use tree-like view in netrw
-vim.g.netrw_icons = 1     -- Show icons in netrw if nerd fonts are installed
+-- NOTE: if no other file explorer installed (OIL) by default uncomment next 3 lines
+-- vim.g.netrw_banner = 0    -- Hide the banner in netrw
+-- vim.g.netrw_liststyle = 1 -- Use tree-like view in netrw
+-- vim.g.netrw_icons = 1     -- Show icons in netrw if nerd fonts are installed
 
 -- Local options
 local opt = vim.opt
@@ -54,11 +55,14 @@ opt.inccommand = "split" -- Show effects of a command incrementally in a split w
 opt.wrap = true       -- Enable text wrapping
 opt.linebreak = true  -- Wrap lines at word boundaries
 opt.cursorline = true -- Highlight the current line
+-- WARN: i don't recommend turning this on because after editing in neovim and moving to any other software then lines will still be 64ch
+-- opt.textwidth = 64 -- this will create a brand new line after 64 characters
 
 -- Scrolling
 opt.scrolloff = 10 -- Keep 10 lines of context around the cursor
 
 -- Spell checking
+-- NOTE: it will accept "es" or "fr" and many other language options.
 opt.spelllang = "en_us" -- Use Spanish for spell checking
 opt.spell = false       -- Disable spell checking by default
 
