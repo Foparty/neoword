@@ -130,3 +130,38 @@ end
 vim.keymap.set('n', '<leader>nf', create_and_open_file_in_root,
   { noremap = true, silent = true, desc = "Create and open new file in project root" })
 vim.keymap.set('n', '<Esc><Esc>', ':Alpha<CR>')
+
+-- external notes section
+
+vim.api.nvim_create_user_command("CreateNewNote", function()
+  -- Prompt for a custom filename
+  local filename = vim.fn.input("Enter note name: ", "", "file")
+
+  -- Ensure the filename has a .md extension
+  if not filename:match("%.md$") then
+    filename = filename .. ".md"
+  end
+
+  local filepath = "~/notes/" .. filename
+  local expanded_filepath = vim.fn.expand(filepath)
+
+  -- Ensure directory exists
+  vim.fn.mkdir(vim.fn.fnamemodify(expanded_filepath, ":h"), "p")
+
+  -- Check if file exists
+  if vim.fn.filereadable(expanded_filepath) == 1 then
+    -- If the file exists, just open it
+    vim.cmd("edit " .. filepath)
+  else
+    -- If the file doesn't exist, create it
+    vim.fn.writefile({}, expanded_filepath, "b")
+    vim.cmd("edit " .. filepath)
+    -- Add a default line to avoid empty buffer
+    vim.api.nvim_buf_set_lines(0, 0, -1, true, { "# New Note" })
+  end
+
+  -- Move to end of buffer, insert two new lines, and start insert mode for both cases
+  vim.cmd("$ | put _ | put _ | startinsert")
+end, {})
+
+vim.keymap.set("n", "<leader>nn", ":CreateNewNote<CR>", { noremap = true, silent = true })
