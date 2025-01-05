@@ -1,3 +1,48 @@
+-- Open file explorer
+-- NOTE: this is without Oil.nvim
+-- vim.keymap.set("n", "<leader>e", ":Ex<CR>", { desc = "Open file explorer" })
+vim.keymap.set("n", "<leader>e", ":w<CR>:Oil<CR>", { desc = "[E]xplore files" })
+
+-- Select all text in the current buffer
+vim.keymap.set("n", "<C-a>", "gg<S-v>G", { desc = "Select all text" })
+
+-- Exit insert mode and save file
+vim.keymap.set("i", "kj", "<Esc>:w<CR>", { desc = "Exit insert mode and save file" })
+
+-- Window management
+vim.keymap.set("n", "<right>", "<C-w>v", { desc = "Split window - right" })
+vim.keymap.set("n", "<down>", "<C-w>s", { desc = "Split window - down" })
+vim.keymap.set("n", "<left>", ":w<CR>", { desc = "Save file" })
+-- next will do same as <C-q> that basicly closes the window if splits or takes you to file explorer if just one buffer
+vim.keymap.set("n", "<up>", function()
+  local win_count = vim.fn.winnr("$")
+  if win_count > 1 then
+    vim.cmd("write")
+    vim.cmd("close")
+  else
+    vim.cmd("Oil") -- Note: 'Oil' is used here, assuming it's a file explorer plugin. Adjust if needed.
+  end
+end, { desc = "Close split or open file explorer if last window" })
+vim.keymap.set("n", "<leader>k", ":bd!<CR>", { desc = "[K]ill / close File" })
+
+-- NOTE: when you are used to HJKL i will change arrows for letters
+-- Navigation between windows
+-- vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to left window" })
+-- vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to right window" })
+-- vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to lower window" })
+-- vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to upper window" })
+
+vim.keymap.set("n", "<C-left>", "<C-w><C-h>", { desc = "Move focus to left window" })
+vim.keymap.set("n", "<C-right>", "<C-w><C-l>", { desc = "Move focus to right window" })
+vim.keymap.set("n", "<C-down>", "<C-w><C-j>", { desc = "Move focus to lower window" })
+vim.keymap.set("n", "<C-up>", "<C-w><C-k>", { desc = "Move focus to upper window" })
+
+-- QUICKFIX NEXT PREV
+--
+vim.keymap.set("n", "<C-j>", ":cnext<CR>", { desc = "Quickfix next" })
+vim.keymap.set("n", "<C-k>", ":cprevious<CR>", { desc = "Quickfix prev" })
+
+-- NOTE: the following options will allow to move one line by one when text wrap make a long line or paragraph multi line
 local pencil = false -- State to track whether the mapping is active
 
 local function toggle_pencil()
@@ -18,36 +63,26 @@ local function toggle_pencil()
 end
 
 -- Map a key to toggle the movement behavior
-vim.keymap.set('n', '<leader>tp', toggle_pencil, { desc = 'Toggle j/k to gj/gk' })
---
+vim.keymap.set('n', '<leader>p', toggle_pencil, { desc = '[T]oggle [P]encil / line by line' })
+-- NOTE: end of pencil options to move single wrapped lines
+
 
 -- Keymap for global search and replace of word under cursor
 vim.keymap.set(
   "n",
-  "<leader>s",
+  "<leader>sf",
   [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>]],
-  { desc = "Replace same word under cursor in the entire document" }
+  { desc = "[S]ubstitute in [F]ile" }
 )
 
 vim.keymap.set(
   "n",
-  "<leader>ca",
+  "<leader>se",
   [[:cfdo %s/\<<C-r><C-w>\>/<C-r><C-w>/gc | update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
-  { desc = "Replace same word under cursor in the entire document" }
+  { desc = "[S]ubstitute [E]verwhere" }
 )
--- Open file explorer
--- NOTE: this is without Oil.nvim
--- vim.keymap.set("n", "<leader>e", ":Ex<CR>", { desc = "Open file explorer" })
-vim.keymap.set("n", "<leader>e", ":w<CR>:Oil<CR>", { desc = "Open file explorer" })
-
 -- Format the current buffer using LSP
-vim.keymap.set("n", "<leader>r", vim.lsp.buf.format, { desc = "Format current buffer" })
-
--- Select all text in the current buffer
-vim.keymap.set("n", "<C-a>", "gg<S-v>G", { desc = "Select all text" })
-
--- Exit insert mode and save file
-vim.keymap.set("i", "kj", "<Esc>:w<CR>", { desc = "Exit insert mode and save file" })
+vim.keymap.set("n", "<leader>r", vim.lsp.buf.format, { desc = "[R]eformat file" })
 
 -- Clear search highlight
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
@@ -55,20 +90,9 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highl
 -- Source the current file (useful for Lua or Vim script files)
 vim.keymap.set("n", "<space><space>x", ":so %<CR>", { desc = "Source current file" })
 
--- Window management
-vim.keymap.set("n", "<right>", "<C-w>v", { desc = "Split window vertically" })
-vim.keymap.set("n", "<down>", "<C-w>s", { desc = "Split window horizontally" })
-vim.keymap.set("n", "<left>", ":w<CR>", { desc = "Save current file" }) -- Corrected command from ":w!<CR>" to ":w<CR>"
-vim.keymap.set("n", "<leader>k", ":bd!<CR>", { desc = "Kill current buffer" })
 
 -- Save all and quit
-vim.keymap.set("n", "<leader>q", ":wqa!<CR>", { desc = "Save all and quit" })
-
--- Navigation between windows
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to left window" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to right window" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to upper window" })
+vim.keymap.set("n", "<leader>q", ":wqa!<CR>", { desc = "[Q]uit after saving all" })
 
 
 -- Close split or open file explorer if it's the last window
@@ -98,14 +122,35 @@ vim.keymap.set("n", "<C-f>", "<C-f>zz", { desc = "Scroll down full page and cent
 vim.keymap.set("n", "<C-b>", "<C-b>zz", { desc = "Scroll up full page and center" })
 
 -- Enter Zen Mode (assuming you have a ZenMode plugin installed)
-vim.keymap.set("n", "<leader>z", ":ZenMode<CR>", { desc = "Enter Zen Mode" })
+vim.keymap.set("n", "<leader>z", ":ZenMode<CR>", { desc = "[Z]en Mode" })
 
+-- NOTE: spell toggle and spell check options
 -- Toggle spell check
+
 local function toggle_spell()
   vim.wo.spell = not vim.wo.spell -- Toggle spell checking for the current window
 end
-vim.keymap.set("n", "<leader>c", toggle_spell, { desc = "Toggle spell check" })
-vim.keymap.set("n", "<leader>tc", '<cmd>Toc<CR>', { desc = "Open table of content on md" })
+
+vim.keymap.set("n", "<leader>S", toggle_spell, { desc = "[S]pell check" })
+-- NOTE: need to set better mappings conditionally on spell
+-- Define your keymap
+-- vim.keymap.set('n', 'z=', function()
+--   if vim.o.spell then
+--     vim.cmd('normal! z=')     -- Perform the default spell check action
+--   else
+--     -- Optionally, do something else or do nothing
+--     print("Spell checking is not active.")
+--   end
+-- end, { desc = "Conditional spell check" })
+vim.keymap.set("n", "<S-right>", ']s1z=', { desc = "next spell error and fix with option 1" })
+vim.keymap.set("n", "<S-left>", '[s1z=', { desc = "prev spell error and fix with option 1" })
+vim.keymap.set("n", "<leader>da", 'zg', { desc = "add word to dictionary" })
+vim.keymap.set("n", "<leader>dw", 'zw', { desc = "wrong word to dictionary" })
+
+
+-- NOTE:this will only work if vim-markdown installed
+-- Table of Content in markdown files
+-- vim.keymap.set("n", "<leader>tc", '<cmd>Toc<CR>', { desc = "[T]able of [C]ontent on Markdown files" })
 
 -- new file in root
 --
@@ -128,7 +173,9 @@ end
 
 -- Map the function to a key, e.g., <leader>nf for "new file"
 vim.keymap.set('n', '<leader>nf', create_and_open_file_in_root,
-  { noremap = true, silent = true, desc = "Create and open new file in project root" })
+  { noremap = true, silent = true, desc = "[N]ew [F]ile in project" })
+
+-- Exit to splash / welcome screen
 vim.keymap.set('n', '<Esc><Esc>', ':Alpha<CR>')
 
 -- external notes section
@@ -164,4 +211,29 @@ vim.api.nvim_create_user_command("CreateNewNote", function()
   vim.cmd("$ | put _ | put _ | startinsert")
 end, {})
 
-vim.keymap.set("n", "<leader>nn", ":CreateNewNote<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>nn", ":CreateNewNote<CR>", { noremap = true, silent = true, desc = '[N]ew [N]ote external' })
+
+vim.api.nvim_create_user_command("CreateJournal", function()
+  local filename = "~/journal/" .. vim.fn.strftime("%d-%m-%Y") .. ".md"
+  local expanded_filename = vim.fn.expand(filename)
+
+  -- Ensure directory exists
+  vim.fn.mkdir(vim.fn.fnamemodify(expanded_filename, ":h"), "p")
+
+  -- Check if file exists
+  if vim.fn.filereadable(expanded_filename) == 1 then
+    -- If the file exists, just open it
+    vim.cmd("edit " .. filename)
+  else
+    -- If the file doesn't exist, create it
+    vim.fn.writefile({}, expanded_filename, "b")
+    vim.cmd("edit " .. filename)
+    -- Add a default line to avoid empty buffer
+    vim.api.nvim_buf_set_lines(0, 0, -1, true, { "# New Note" })
+  end
+
+  -- Move to end of buffer, insert two new lines, and start insert mode for both cases
+  vim.cmd("$ | put _ | put _ | startinsert")
+end, {})
+
+vim.keymap.set('n', '<leader>nj', ':CreateJournal<CR>', { desc = '[N]ew [J]ournal note' })
