@@ -4,7 +4,7 @@ return {
     lazy = false,
     config = function()
       require('auto-session').setup({
-        suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+        suppressed_dirs = { '~/Downloads', },
         session_lens = {
           load_on_startup = true,
           theme_conf = { border = true },

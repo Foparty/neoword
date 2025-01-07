@@ -23,7 +23,7 @@ vim.keymap.set("n", "<up>", function()
     vim.cmd("Oil") -- Note: 'Oil' is used here, assuming it's a file explorer plugin. Adjust if needed.
   end
 end, { desc = "Close split or open file explorer if last window" })
-vim.keymap.set("n", "<leader>k", ":bd!<CR>", { desc = "[K]ill / close File" })
+vim.keymap.set("n", "<leader>k", ":bd!<CR>:Oil<CR>", { desc = "[K]ill / close File" })
 
 -- NOTE: when you are used to HJKL i will change arrows for letters
 -- Navigation between windows
@@ -88,6 +88,7 @@ vim.keymap.set("n", "<leader>r", vim.lsp.buf.format, { desc = "[R]eformat file" 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
 
 -- Source the current file (useful for Lua or Vim script files)
+-- WARN: do comment line below after development
 vim.keymap.set("n", "<space><space>x", ":so %<CR>", { desc = "Source current file" })
 
 
@@ -159,7 +160,7 @@ local function create_and_open_file_in_root()
   local root_dir = vim.fn.getcwd() -- or use some other method to find project root
 
   -- Prompt for filename
-  local filename = vim.fn.input("Enter filename: ")
+  local filename = vim.fn.input("Enter filename:")
 
   -- Construct full path for the new file
   local full_path = vim.fn.fnamemodify(root_dir .. "/" .. filename, ":p")
@@ -182,7 +183,7 @@ vim.keymap.set('n', '<Esc><Esc>', ':Alpha<CR>')
 
 vim.api.nvim_create_user_command("CreateNewNote", function()
   -- Prompt for a custom filename
-  local filename = vim.fn.input("Enter note name: ", "", "file")
+  local filename = vim.fn.input("Enter note name:", "", "file")
 
   -- Ensure the filename has a .md extension
   if not filename:match("%.md$") then

@@ -1,10 +1,10 @@
--- Define leader keys for global and local mappings
 vim.g.mapleader = " "      -- Set space as the global leader key
 vim.g.maplocalleader = " " -- Set space as the local leader key
 
 -- Enable nerd font icons if available
 vim.g.have_nerd_font = true -- We have nerd fonts installed
 
+vim.foldenable = true
 -- Netrw (file explorer) settings
 -- NOTE: if no other file explorer installed (OIL) by default uncomment next 3 lines
 -- vim.g.netrw_banner = 0    -- Hide the banner in netrw

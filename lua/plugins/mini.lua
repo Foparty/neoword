@@ -3,6 +3,8 @@ return {
     'echasnovski/mini.nvim',
     enabled = true,
     config = function()
+      require("mini.surround").setup()
+
       local statusline = require 'mini.statusline'
       local function words()
         return vim.fn.wordcount().words .. " WC"

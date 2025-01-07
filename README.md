@@ -1,5 +1,23 @@
 # Neo-Word
 
+## test de prueba
+
+### y mas de lo mas
+
+#### que cosas raras
+
+##### y opr que esto?
+
+###### oasdaosdddaisdfas
+
+####### asdfasdfasdfasdfasd
+
+1. coasdas
+2. nasdfasdf:
+    a. asdfasdf
+    b. asdfasdf
+    c. asdf
+    d. jk
 this will be the readme file for the Neo-Word Nvim build.
 
 Perfect build for any writer, vloger etc.
@@ -32,8 +50,9 @@ por que iria esto a recomendarme nada de nada [[cosas]]
 http://www.google.com
 ooi
 1. cosas
-2. pedos
-3. picos:
+2. caca
+3. pedos
+4. picos:
     a. la cosas
 
 
@@ -45,12 +64,18 @@ II. de la
 III. vida
 IV.  pedos
 V.   cacas
+[link](##cosas_de_la_vida)
 
+1. coasas
+2. de la 
+3. vida
 
 ## cosas de la vida
 [cosas](http://www.google.com)
 
-
+- [X] cosas
+- [ ] pero con 
+- [X] estilllllllllo
 
 
 
