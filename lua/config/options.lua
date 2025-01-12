@@ -79,3 +79,5 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.g.markdown_folding_disabled = 0
 vim.g.vim_markdown_folding_disabled = 1
 vim.g.foldmethod = 'manual'
+
+vim.cmd [[colorscheme tokyonight]]

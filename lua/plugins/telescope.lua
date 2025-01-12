@@ -62,7 +62,7 @@ return {
       -- Call grep_string with the modified search string
       require('telescope.builtin').grep_string({ search = search_string })
     end
-    vim.keymap.set("n", "<leader>fk", search_tag, { desc = "[S]earch current [W]ord" })
+    -- vim.keymap.set("n", "<leader>fk", search_tag, { desc = "[S]earch [K]eywords" })
     vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
     vim.keymap.set("n", "<leader>f.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
     vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>")

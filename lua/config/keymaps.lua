@@ -17,9 +17,10 @@ vim.keymap.set("n", "<left>", ":w<CR>", { desc = "Save file" })
 vim.keymap.set("n", "<up>", function()
   local win_count = vim.fn.winnr("$")
   if win_count > 1 then
-    vim.cmd("write")
+    vim.cmd("update")
     vim.cmd("close")
   else
+    vim.cmd("update")
     vim.cmd("Oil") -- Note: 'Oil' is used here, assuming it's a file explorer plugin. Adjust if needed.
   end
 end, { desc = "Close split or open file explorer if last window" })
@@ -98,13 +99,8 @@ vim.keymap.set("n", "<leader>q", ":wqa!<CR>", { desc = "[Q]uit after saving all"
 
 -- Close split or open file explorer if it's the last window
 vim.keymap.set("n", "<C-q>", function()
-  local win_count = vim.fn.winnr("$")
-  if win_count > 1 then
-    vim.cmd("write")
-    vim.cmd("close")
-  else
-    vim.cmd("Oil") -- Note: 'Oil' is used here, assuming it's a file explorer plugin. Adjust if needed.
-  end
+  vim.cmd("update")
+  vim.cmd("Oil")
 end, { desc = "Close split or open file explorer if last window" })
 
 -- Line movement

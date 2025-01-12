@@ -1,94 +1,26 @@
 # Neo-Word
 
-## test de prueba
+This #NeoVim setup will target writers of all kind with amazing tools put toghether to speed up your creative process without interfearing in your creativity
 
-### y mas de lo mas
+Main charachteristics:
 
-#### que cosas raras
+- Nice intro screen for easy start and search in your project
+- Auto closing symbols ( [] , {}, '', "", etc.)
+- Version Control (git, gitHub)
+- Nicer markdown render while typing 
+- comprehensive file explorer
+- auto save sessions in case working in as many projects as you want
+- blazing fast finding tools within your project, notes, etc (you can expand config as far as you need)
+- TODO COMMENTS that you can leave anywhere you need to never forget to research anything, change or fix whatever you need
+- Zen Mode and line highlighting
+- Spell check in many languages
+- always easy acces to help so you never get lost until you master how to use this tool
 
-##### y opr que esto?
+<!--WARN: que co;o pasa aqui que no se puede hacer nada de nada-->
 
-###### oasdaosdddaisdfas
-
-####### asdfasdfasdfasdfasd
-
-1. coasdas
-2. nasdfasdf:
-    a. asdfasdf
-    b. asdfasdf
-    c. asdf
-    d. jk
-this will be the readme file for the Neo-Word Nvim build.
-
-Perfect build for any writer, vloger etc.
-
-[[c]]
-[[cosas]]
-
-pero entonces tambien me da ejemplos en los momentos que definitivamente no quiero nada. esto es de lo malo lo peor
-cosas
-[[cosas]]
-
-[[pedos]]
-
-[[pedos]] 
-[cosas que asi se hacen](http://www.google.com)
-cosas de la vida por que pasa est o? no quiero que haga nada asi que no
-[](##cosas)
-pues las cosas si que no veo que esto podria ser de verdad algo positivo
-[[cosas]]
-
-cosas que no se si vale la pena
-
-[[pedos]]
-[[co]]
-que pasa
-
-cosas que valen la pena pero no sabria yo que decir sobre eso y asi
-cosas que pareceria que no valen la pena
-por que iria esto a recomendarme nada de nada [[cosas]] 
-http://www.google.com
-ooi
-1. cosas
-2. caca
-3. pedos
-4. picos:
-    a. la cosas
+<!--BUG: pues anda que aqui las cosas estan cada vez peor-->
 
 
-- [ ] cosas
-- [X] pedo
+## para que veas que las cosas es que son de locos de la verdad
 
-I. cosas
-II. de la 
-III. vida
-IV.  pedos
-V.   cacas
-[link](##cosas_de_la_vida)
-
-1. coasas
-2. de la 
-3. vida
-
-## cosas de la vida
-[cosas](http://www.google.com)
-
-- [X] cosas
-- [ ] pero con 
-- [X] estilllllllllo
-
-
-
-porque las cosas de la vida son asi y asi se las hemos contado en la vida de las cosas de la vida
-the real thing is that I don't want any relevant shit going on
-
-
-
-
-
-
-
-## pedos
-
-
-
+y ahora aqui la verdad que no se ve nada mal las cosas asi que deberia de ser bien o sino la verdad que un poco mal las cosas eh?
