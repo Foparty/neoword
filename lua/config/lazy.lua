@@ -23,5 +23,13 @@ require("lazy").setup({
     -- import your plugins
     { import = "plugins" },
   },
-  checker = { enabled = false },
+  checker = {
+    enabled = true,
+    notify = false
+  },
+  change_detection = {
+    notify = false
+  }
 })
+
+vim.cmd [[colorscheme catppuccin]]

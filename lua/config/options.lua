@@ -75,9 +75,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 -- markdown specific
--- BUG: can't make it too work without auto folding witch is very anoying
+-- BUG: can't make it to work without auto folding witch is very anoying
 vim.g.markdown_folding_disabled = 0
 vim.g.vim_markdown_folding_disabled = 1
 vim.g.foldmethod = 'manual'
 
-vim.cmd [[colorscheme tokyonight]]
+vim.api.nvim_set_hl(0, "Normal", { fg = "#cccccc", bg = "#1a1a1a" })
+vim.api.nvim_set_hl(0, "CursorLine", { bg = "#282835" })
+-- vim.cmd.colorscheme('binary')
