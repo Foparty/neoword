@@ -1,4 +1,4 @@
-# Neo-Word
+# NvimWord
 
 This #NeoVim setup will target writers of all kind with amazing tools put toghether to speed up your creative process without interfearing in your creativity
 
