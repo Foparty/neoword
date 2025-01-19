@@ -139,8 +139,8 @@ vim.keymap.set("n", "<leader>S", toggle_spell, { desc = "[S]pell check" })
 --     print("Spell checking is not active.")
 --   end
 -- end, { desc = "Conditional spell check" })
-vim.keymap.set("n", "<S-right>", ']s1z=', { desc = "next spell error and fix with option 1" })
-vim.keymap.set("n", "<S-left>", '[s1z=', { desc = "prev spell error and fix with option 1" })
+vim.keymap.set("n", "<S-right>", ']sz=', { desc = "next spell error and fix with option 1" })
+vim.keymap.set("n", "<S-left>", '[sz=', { desc = "prev spell error and fix with option 1" })
 vim.keymap.set("n", "<leader>da", 'zg', { desc = "add word to dictionary" })
 vim.keymap.set("n", "<leader>dw", 'zw', { desc = "wrong word to dictionary" })
 
