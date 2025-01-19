@@ -4,10 +4,12 @@ return {
     enabled = true,
     config = function()
       require("mini.surround").setup()
+      require("mini.ai").setup({ n_lines = 500 })
 
       local statusline = require 'mini.statusline'
-      local function words()
-        return vim.fn.wordcount().words .. " WC"
+      local function counts()
+        local counts = vim.fn.wordcount()
+        return counts.chars .. " CC," .. counts.words .. " WC"
       end
       statusline.setup {
         content = {
@@ -30,7 +32,7 @@ return {
               '%<', -- Mark general truncate point
               { hl = 'MiniStatuslineFilename', strings = { filename } },
               '%=', -- End left alignment
-              { hl = 'MiniStatuslineFileinfo', strings = { fileinfo, words() } },
+              { hl = 'MiniStatuslineFileinfo', strings = { fileinfo, counts() } },
               { hl = mode_hl,                  strings = { search, location } },
             })
           end,
