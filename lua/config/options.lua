@@ -26,7 +26,7 @@ opt.expandtab = true -- Convert tabs to spaces
 
 -- Clipboard settings (scheduled to avoid issues at startup)
 vim.schedule(function()
-	opt.clipboard = "unnamedplus" -- Use system clipboard for copy-paste
+  opt.clipboard = "unnamedplus" -- Use system clipboard for copy-paste
 end)
 
 -- Undo, case sensitivity, and search
@@ -68,11 +68,11 @@ opt.spell = false       -- Disable spell checking by default
 
 -- Autocommand to highlight text when yanked (copied)
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank() -- Highlight the text that was just yanked
-	end,
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank() -- Highlight the text that was just yanked
+  end,
 })
 -- markdown specific
 -- BUG: can't make it to work without auto folding witch is very anoying
@@ -82,4 +82,3 @@ vim.g.foldmethod = 'manual'
 
 vim.api.nvim_set_hl(0, "Normal", { fg = "#cccccc", bg = "#1a1a1a" })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = "#282835" })
--- vim.cmd.colorscheme('binary')
