@@ -25,6 +25,7 @@ vim.keymap.set("n", "<up>", function()
   end
 end, { desc = "Close split or open file explorer if last window" })
 vim.keymap.set("n", "<leader>k", ":bd!<CR>:Oil<CR>", { desc = "[K]ill / close File" })
+vim.keymap.set("n", "<leader>ka", ":%bd!<CR>:Oil<CR>", { desc = "[K]ill / close File" })
 
 -- NOTE: when you are used to HJKL i will change arrows for letters
 -- Navigation between windows

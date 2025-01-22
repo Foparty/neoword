@@ -28,8 +28,8 @@ return {
         -- bg = '#00ca9e'
 
         -- sky
-        -- fg = "#0049C6",
-        -- bg = "#ffffff",
+        fg = "#0049C6",
+        bg = "#ffffff",
 
         -- wasteland
         -- fg = "#2CF180",
@@ -45,8 +45,8 @@ return {
 
 
         -- ia writer dark
-        fg = '#1a1a1a',
-        bg = '#cccccc'
+        -- fg = '#1a1a1a',
+        -- bg = '#cccccc'
 
       },
       reversed_group = {},

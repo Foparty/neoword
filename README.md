@@ -2,6 +2,8 @@
 
 ![logo](/assets/logo.webp)
 
+## You writing tool that will multiply 10x your writing experience!
+
 This #NeoVim setup will target writers of all kind with amazing tools put toghether to speed up your creative process without interfearing in your creativity
 
 Main charachteristics:
@@ -17,3 +19,5 @@ Main charachteristics:
 - Zen Mode and line highlighting
 - Spell check in many languages
 - always easy acces to help so you never get lost until you master how to use this tool
+
+
