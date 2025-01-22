@@ -6,7 +6,6 @@
 
 This #NeoVim setup will target writers of all kind with amazing tools put toghether to speed up your creative process without interfearing in your creativity
 
-Main charachteristics:
 
 - Nice intro screen for easy start and search in your project
 - Auto closing symbols ( [] , {}, '', "", etc.)
@@ -21,3 +20,4 @@ Main charachteristics:
 - always easy acces to help so you never get lost until you master how to use this tool
 
 
+modification
