@@ -45,28 +45,6 @@ vim.keymap.set("n", "<C-j>", ":cnext<CR>", { desc = "Quickfix next" })
 vim.keymap.set("n", "<C-k>", ":cprevious<CR>", { desc = "Quickfix prev" })
 
 -- NOTE: the following options will allow to move one line by one when text wrap make a long line or paragraph multi line
-local pencil = false -- State to track whether the mapping is active
-
-local function toggle_pencil()
-  if pencil then
-    -- Reset to normal behavior
-    vim.keymap.del('n', 'j')
-    vim.keymap.del('n', 'k')
-    vim.keymap.del('v', 'j')
-    vim.keymap.del('v', 'k')
-    print("Normal j/k movement restored")
-  else
-    -- Map j to gj and k to gk
-    vim.keymap.set({ 'n', 'v' }, 'j', 'gjzz')
-    vim.keymap.set({ 'n', 'v' }, 'k', 'gkzz')
-    print("Using gj/gk for j/k movement")
-  end
-  pencil = not pencil
-end
-
--- Map a key to toggle the movement behavior
-vim.keymap.set('n', '<leader>p', toggle_pencil, { desc = '[T]oggle [P]encil / line by line' })
--- NOTE: end of pencil options to move single wrapped lines
 
 
 -- Keymap for global search and replace of word under cursor
@@ -129,7 +107,7 @@ local function toggle_spell()
   vim.wo.spell = not vim.wo.spell -- Toggle spell checking for the current window
 end
 
-vim.keymap.set("n", "<leader>S", toggle_spell, { desc = "[S]pell check" })
+vim.keymap.set("n", "<leader>S", toggle_spell, { desc = "[S]pell / tab / z=" })
 -- NOTE: need to set better mappings conditionally on spell
 -- Define your keymap
 -- vim.keymap.set('n', 'z=', function()
@@ -140,8 +118,15 @@ vim.keymap.set("n", "<leader>S", toggle_spell, { desc = "[S]pell check" })
 --     print("Spell checking is not active.")
 --   end
 -- end, { desc = "Conditional spell check" })
-vim.keymap.set("n", "<S-right>", ']sz=', { desc = "next spell error and fix with option 1" })
-vim.keymap.set("n", "<S-left>", '[sz=', { desc = "prev spell error and fix with option 1" })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "text" },
+  callback = function()
+    vim.keymap.set("n", "<Tab>", "]s")
+    vim.keymap.set("n", "<S-Tab>", "[s")
+    vim.keymap.set("n", "j", "gj")
+    vim.keymap.set("n", "k", "gk")
+  end,
+})
 vim.keymap.set("n", "<leader>da", 'zg', { desc = "add word to dictionary" })
 vim.keymap.set("n", "<leader>dw", 'zw', { desc = "wrong word to dictionary" })
 

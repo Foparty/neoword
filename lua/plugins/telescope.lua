@@ -5,6 +5,22 @@ return {
   branch = "0.1.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
+    "debugloop/telescope-undo.nvim",
+    -- NOTE: these are the default mappings fot undo telescope
+    -- mappings = {
+    --         i = {
+    --           ["<cr>"] = require("telescope-undo.actions").yank_additions,
+    --           ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
+    --           ["<C-cr>"] = require("telescope-undo.actions").restore,
+    --           -- alternative defaults, for users whose terminals do questionable things with modified <cr>
+    --           ["<C-y>"] = require("telescope-undo.actions").yank_deletions,
+    --           ["<C-r>"] = require("telescope-undo.actions").restore,
+    --         },
+    --         n = {
+    --           ["y"] = require("telescope-undo.actions").yank_additions,
+    --           ["Y"] = require("telescope-undo.actions").yank_deletions,
+    --           ["u"] = require("telescope-undo.actions").restore,
+    --         },
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
@@ -41,7 +57,8 @@ return {
         },
       },
     })
-
+    require("telescope").load_extension("undo")
+    vim.keymap.set("n", "<leader>uh", "<cmd>Telescope undo<cr>", { desc = '[U]ndo [H]istory' })
     -- Enable Telescope extensions if they are installed
     pcall(require("telescope").load_extension, "fzf")
     pcall(require("telescope").load_extension, "ui-select")
