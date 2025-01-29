@@ -20,6 +20,13 @@ return {
       -- Enter insert mode
       vim.cmd("startinsert")
     end
+    local function open_specific_file()
+      local file_path = vim.fn.stdpath('config') .. '/lua/config/spell.lua'
+      vim.cmd('edit ' .. file_path)
+    end
+
+    -- Map this function to a key or command
+    vim.api.nvim_create_user_command('OpenSpecificFile', open_specific_file, {})
 
     -- Set header
     dashboard.section.header.val = {
@@ -41,6 +48,7 @@ return {
       dashboard.button("e", "  > Toggle file explorer", "<cmd>Oil<CR>"),
       dashboard.button("f", "󰱼  > Find File", "<cmd>Telescope find_files<CR>"),
       dashboard.button("w", "  > Find Word", "<cmd>Telescope live_grep<CR>"),
+      dashboard.button("s", "󰓆  > Spelling Config", open_specific_file),
       dashboard.button(".", "󰁯  > Recent files", "<cmd>Telescope oldfiles<CR>"),
       dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),
     }

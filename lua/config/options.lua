@@ -52,7 +52,7 @@ opt.backspace = "indent,eol,start" -- Allow backspacing over autoindent, line br
 opt.inccommand = "split" -- Show effects of a command incrementally in a split window
 
 -- Text wrapping and cursor line
-opt.wrap = true       -- Enable text wrapping
+opt.wrap = false      -- Enable text wrapping
 opt.linebreak = true  -- Wrap lines at word boundaries
 opt.cursorline = true -- Highlight the current line
 -- WARN: i don't recommend turning this on because after editing in neovim and moving to any other software then lines will still be 64ch
@@ -61,10 +61,6 @@ opt.cursorline = true -- Highlight the current line
 -- Scrolling
 opt.scrolloff = 10 -- Keep 10 lines of context around the cursor
 
--- Spell checking
--- NOTE: it will accept "es" or "fr" and many other language options.
-opt.spelllang = "en_us" -- Use Spanish for spell checking
-opt.spell = false       -- Disable spell checking by default
 
 -- Autocommand to highlight text when yanked (copied)
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -80,5 +76,5 @@ vim.g.markdown_folding_disabled = 0
 vim.g.vim_markdown_folding_disabled = 1
 vim.g.foldmethod = 'manual'
 
-vim.api.nvim_set_hl(0, "Normal", { fg = "#cccccc", bg = "#1a1a1a" })
-vim.api.nvim_set_hl(0, "CursorLine", { bg = "#282835" })
+-- vim.api.nvim_set_hl(0, "Normal", { fg = "#cccccc", bg = "#1a1a1a" })
+-- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#282835" })
