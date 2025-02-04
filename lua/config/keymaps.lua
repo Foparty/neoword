@@ -34,15 +34,15 @@ vim.keymap.set("n", "<leader>ka", ":%bd!<CR>:Oil<CR>", { desc = "[K]ill / close 
 -- vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to lower window" })
 -- vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to upper window" })
 
-vim.keymap.set("n", "<C-left>", "<C-w><C-h>", { desc = "Move focus to left window" })
-vim.keymap.set("n", "<C-right>", "<C-w><C-l>", { desc = "Move focus to right window" })
-vim.keymap.set("n", "<C-down>", "<C-w><C-j>", { desc = "Move focus to lower window" })
-vim.keymap.set("n", "<C-up>", "<C-w><C-k>", { desc = "Move focus to upper window" })
+vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to left window" })
+vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to right window" })
+vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to lower window" })
+vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to upper window" })
 
 -- QUICKFIX NEXT PREV
 --
-vim.keymap.set("n", "<C-j>", ":cnext<CR>", { desc = "Quickfix next" })
-vim.keymap.set("n", "<C-k>", ":cprevious<CR>", { desc = "Quickfix prev" })
+vim.keymap.set("n", "<C-]>", ":cnext<CR>", { desc = "Quickfix next" })
+vim.keymap.set("n", "<C-[>", ":cprevious<CR>", { desc = "Quickfix prev" })
 
 -- NOTE: the following options will allow to move one line by one when text wrap make a long line or paragraph multi line
 
@@ -77,10 +77,15 @@ vim.keymap.set("n", "<leader>q", ":wqa!<CR>", { desc = "[Q]uit after saving all"
 
 
 -- Close split or open file explorer if it's the last window
-vim.keymap.set("n", "<C-q>", function()
+-- vim.keymap.set("n", "<C-q>", function()
+--   vim.cmd("update")
+--   vim.cmd("Oil")
+-- end, { desc = "Close split or open file explorer if last window" })
+vim.keymap.set("n", "<C-e>", function()
   vim.cmd("update")
   vim.cmd("Oil")
 end, { desc = "Close split or open file explorer if last window" })
+
 
 -- Line movement
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move current line down" })
@@ -108,25 +113,7 @@ local function toggle_spell()
 end
 
 vim.keymap.set("n", "<leader>S", toggle_spell, { desc = "[S]pell / tab / z=" })
--- NOTE: need to set better mappings conditionally on spell
--- Define your keymap
--- vim.keymap.set('n', 'z=', function()
---   if vim.o.spell then
---     vim.cmd('normal! z=')     -- Perform the default spell check action
---   else
---     -- Optionally, do something else or do nothing
---     print("Spell checking is not active.")
---   end
--- end, { desc = "Conditional spell check" })
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "text" },
-  callback = function()
-    vim.keymap.set("n", "<Tab>", "]s")
-    vim.keymap.set("n", "<S-Tab>", "[s")
-    vim.keymap.set("n", "j", "gj")
-    vim.keymap.set("n", "k", "gk")
-  end,
-})
+
 vim.keymap.set("n", "<leader>da", 'zg', { desc = "add word to dictionary" })
 vim.keymap.set("n", "<leader>dw", 'zw', { desc = "wrong word to dictionary" })
 
@@ -220,3 +207,6 @@ vim.api.nvim_create_user_command("CreateJournal", function()
 end, {})
 
 vim.keymap.set('n', '<leader>nj', ':CreateJournal<CR>', { desc = '[N]ew [J]ournal note' })
+vim.keymap.set('n', '<leader>bt', function()
+  print("Filetype: " .. vim.bo.filetype)
+end, { desc = "Show buffer type" })
