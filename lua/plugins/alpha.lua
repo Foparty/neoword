@@ -48,8 +48,9 @@ return {
       dashboard.button("e", "  > Toggle file explorer", "<cmd>Oil<CR>"),
       dashboard.button("f", "󰱼  > Find File", "<cmd>Telescope find_files<CR>"),
       dashboard.button("w", "  > Find Word", "<cmd>Telescope live_grep<CR>"),
-      dashboard.button("s", "󰓆  > Spelling Config", open_specific_file),
-      dashboard.button(".", "󰁯  > Recent files", "<cmd>Telescope oldfiles<CR>"),
+      dashboard.button("g", "󰓆  > Spelling Config", open_specific_file),
+      dashboard.button(".", "󰁯  > Recent files", "<cmd>Telescope oldfiles cwd=" .. vim.fn.getcwd() .. "<CR>"),
+      dashboard.button("s", "  > Sessions", "<cmd>SessionSearch<CR>"),
       dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),
     }
 

@@ -3,7 +3,13 @@ return {
   event = "VimEnter", -- Sets the loading event to 'VimEnter'
   config = function() -- This is the function that runs, AFTER loading
     require("which-key").setup({
-      preset = 'modern'
+      preset = 'modern',
+      plugins = {
+        spelling = {
+          enabled = true,
+          suggestions = 20,           -- Number of suggestions to show
+        },
+      },
     })
 
     -- Document existing key chains

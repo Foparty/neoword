@@ -15,8 +15,11 @@ return {
           ['<C-t>'] = false,
           ['<C-p>'] = 'actions.preview',
           ['<C-c>'] = { 'actions.close', mode = 'n' },
+          ['q'] = { 'actions.close', mode = 'n' },
+          ['<esc>'] = { 'actions.close', mode = 'n' },
           ['<C-l>'] = false,
           ['-'] = { 'actions.parent', mode = 'n' },
+          ['<C-e>'] = { 'actions.parent', mode = 'n' },
           ['_'] = { 'actions.open_cwd', mode = 'n' },
           ['`'] = { 'actions.cd', mode = 'n' },
           ['~'] = { 'actions.cd', opts = { scope = 'tab' }, mode = 'n' },
@@ -27,6 +30,7 @@ return {
         },
       }
       vim.keymap.set('n', '-', oil.toggle_float, {})
+      vim.keymap.set('n', '<C-e>', oil.toggle_float, {})
     end,
     -- Optional dependencies
     -- dependencies = { { "echasnovski/mini.icons", opts = {} } },

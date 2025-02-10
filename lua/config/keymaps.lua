@@ -69,7 +69,7 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highl
 
 -- Source the current file (useful for Lua or Vim script files)
 -- WARN: do comment line below after development
-vim.keymap.set("n", "<space><space>x", ":so %<CR>", { desc = "Source current file" })
+vim.keymap.set("n", "<space>sf", ":so %<CR>", { desc = "Source current file" })
 
 
 -- Save all and quit
@@ -81,10 +81,10 @@ vim.keymap.set("n", "<leader>q", ":wqa!<CR>", { desc = "[Q]uit after saving all"
 --   vim.cmd("update")
 --   vim.cmd("Oil")
 -- end, { desc = "Close split or open file explorer if last window" })
-vim.keymap.set("n", "<C-e>", function()
-  vim.cmd("update")
-  vim.cmd("Oil")
-end, { desc = "Close split or open file explorer if last window" })
+-- vim.keymap.set("n", "<C-e>", function()
+--   vim.cmd("update")
+--   vim.cmd("Oil")
+-- end, { desc = "Close split or open file explorer if last window" })
 
 
 -- Line movement
@@ -109,11 +109,11 @@ vim.keymap.set("n", "<leader>z", ":ZenMode<CR>", { desc = "[Z]en Mode" })
 -- Toggle spell check
 
 local function toggle_spell()
-  vim.wo.spell = not vim.wo.spell -- Toggle spell checking for the current window
+  vim.wo.spell = not vim.wo.spell -- Toggle spell chacina for the current window
 end
 
 vim.keymap.set("n", "<leader>S", toggle_spell, { desc = "[S]pell / tab / z=" })
-
+vim.keymap.set('n', 'gs', function() require("which-key").show("z=") end, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>da", 'zg', { desc = "add word to dictionary" })
 vim.keymap.set("n", "<leader>dw", 'zw', { desc = "wrong word to dictionary" })
 
@@ -124,26 +124,37 @@ vim.keymap.set("n", "<leader>dw", 'zw', { desc = "wrong word to dictionary" })
 
 -- new file in root
 --
-local function create_and_open_file_in_root()
-  -- Find the project root (example using vim-rooter or similar functionality)
-  local root_dir = vim.fn.getcwd() -- or use some other method to find project root
+vim.api.nvim_create_user_command("CreateNewFile", function()
+  -- Prompt for a custom filename
+  local filename = vim.fn.input("Enter file name:", "", "file")
 
-  -- Prompt for filename
-  local filename = vim.fn.input("Enter filename:")
+  -- Ensure the filename has a .md extension
+  if not filename:match("%.md$") then
+    filename = filename .. ".md"
+  end
 
-  -- Construct full path for the new file
-  local full_path = vim.fn.fnamemodify(root_dir .. "/" .. filename, ":p")
+  -- Use the current working directory
+  local current_dir = vim.fn.getcwd()
+  local filepath = current_dir .. "/" .. filename
 
-  -- Open the file in a new buffer
-  vim.cmd("edit " .. full_path)
+  -- Check if file exists
+  if vim.fn.filereadable(filepath) == 1 then
+    -- If the file exists, just open it
+    vim.cmd("edit " .. filepath)
+  else
+    -- If the file doesn't exist, create it
+    vim.fn.writefile({}, filepath, "b")
+    vim.cmd("edit " .. filepath)
+    -- Add a default line to avoid empty buffer
+    vim.api.nvim_buf_set_lines(0, 0, -1, true, { "" })
+  end
 
-  -- Enter insert mode
-  vim.cmd("startinsert")
-end
+  -- Move to end of buffer, insert two new lines, and start insert mode for both cases
+  vim.cmd("$ | startinsert")
+end, {})
 
--- Map the function to a key, e.g., <leader>nf for "new file"
-vim.keymap.set('n', '<leader>nf', create_and_open_file_in_root,
-  { noremap = true, silent = true, desc = "[N]ew [F]ile in project" })
+vim.keymap.set("n", "<leader>nf", ":CreateNewFile<CR>", { noremap = true, silent = true, desc = '[N]ew [F]ile' })
+
 
 -- Exit to splash / welcome screen
 vim.keymap.set('n', '<Esc><Esc>', ':Alpha<CR>')
@@ -207,6 +218,3 @@ vim.api.nvim_create_user_command("CreateJournal", function()
 end, {})
 
 vim.keymap.set('n', '<leader>nj', ':CreateJournal<CR>', { desc = '[N]ew [J]ournal note' })
-vim.keymap.set('n', '<leader>bt', function()
-  print("Filetype: " .. vim.bo.filetype)
-end, { desc = "Show buffer type" })
