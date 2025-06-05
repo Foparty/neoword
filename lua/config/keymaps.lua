@@ -1,8 +1,3 @@
--- Open file explorer
--- NOTE: this is without Oil.nvim
--- vim.keymap.set("n", "<leader>e", ":Ex<CR>", { desc = "Open file explorer" })
-vim.keymap.set("n", "<leader>e", ":w<CR>:Oil<CR>", { desc = "[E]xplore files" })
-
 -- Select all text in the current buffer
 vim.keymap.set("n", "<C-a>", "gg<S-v>G", { desc = "Select all text" })
 

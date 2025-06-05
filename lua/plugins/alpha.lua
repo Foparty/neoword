@@ -46,10 +46,9 @@ return {
     dashboard.section.buttons.val = {
       dashboard.button("n", "  > New File", new_file),
       dashboard.button("e", "  > Toggle file explorer", "<cmd>Oil<CR>"),
-      dashboard.button("f", "󰱼  > Find File", "<cmd>Telescope find_files<CR>"),
-      dashboard.button("w", "  > Find Word", "<cmd>Telescope live_grep<CR>"),
+      dashboard.button("f", "󰱼  > Find File", "<cmd>lua Snacks.picker.files()<CR>"),
+      dashboard.button("w", "  > Find Word", "<cmd>lua Snacks.picker.grep()<CR>"),
       dashboard.button("g", "󰓆  > Spelling Config", open_specific_file),
-      dashboard.button(".", "󰁯  > Recent files", "<cmd>Telescope oldfiles cwd=" .. vim.fn.getcwd() .. "<CR>"),
       dashboard.button("s", "  > Sessions", "<cmd>SessionSearch<CR>"),
       dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),
     }

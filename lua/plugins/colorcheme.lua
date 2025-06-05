@@ -1,15 +1,5 @@
 return {
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000,
-    config = function()
-      require('catppuccin').setup({
-        transparent_background = false,
-      })
-    end
-  },
-  {
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
@@ -21,7 +11,7 @@ return {
       -- type = "system", -- Theme style: "system" | "light" | "dark"
       colors = { -- Colors used for the "light" theme; reversed automatically for "dark"
         -- ambar
-        -- bg = '#ffb400'
+        bg = '#ffb400'
 
         -- teal
         -- bg = '#00ca9e'
@@ -44,8 +34,8 @@ return {
 
 
         -- ia writer dark
-        fg = '#1a1a1a',
-        bg = '#cccccc',
+        -- fg = '#1a1a1a',
+        -- bg = '#cccccc',
 
       },
       reversed_group = {},
