@@ -11,7 +11,7 @@ return {
       -- type = "system", -- Theme style: "system" | "light" | "dark"
       colors = { -- Colors used for the "light" theme; reversed automatically for "dark"
         -- ambar
-        bg = '#ffb400'
+        -- bg = '#ffb400'
 
         -- teal
         -- bg = '#00ca9e'
@@ -32,13 +32,19 @@ return {
         -- bg = '#1a1a1a',
         -- fg = '#cccccc',
 
-
         -- ia writer dark
-        -- fg = '#1a1a1a',
-        -- bg = '#cccccc',
-
+        fg = "#1a1a1a",
+        bg = "#cccccc",
       },
       reversed_group = {},
-    }
+    },
+  },
+
+  {
+    -- https://github.com/zenbones-theme/zenbones.nvim
+    "zenbones-theme/zenbones.nvim",
+    dependencies = "rktjmp/lush.nvim",
+    lazy = false,
+    priority = 1000,
   },
 }

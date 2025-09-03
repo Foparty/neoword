@@ -25,11 +25,13 @@ require("lazy").setup({
   },
   checker = {
     enabled = true,
-    notify = false
+    notify = false,
   },
   change_detection = {
-    notify = false
+    notify = false,
   },
 })
 
-vim.cmd [[colorscheme binary]]
+-- vim.cmd([[colorscheme tokyonight]])
+-- vim.cmd([[colorscheme binary]])
+vim.cmd([[colorscheme zenbones]])

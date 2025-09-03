@@ -3,6 +3,7 @@ vim.opt.wrap = true
 
 vim.opt.linebreak = true  -- Wrap lines at word boundaries
 vim.opt.cursorline = true -- Highlight the current line
+vim.opt.spell = true
 
 
 vim.keymap.set("n", "<Tab>", "]s")

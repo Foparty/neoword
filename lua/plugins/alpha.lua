@@ -11,6 +11,11 @@ return {
       -- Prompt for filename
       local filename = vim.fn.input("Enter filename: ")
 
+      -- Append .md extension if not already present
+      if not filename:match("%.md$") then
+        filename = filename .. ".md"
+      end
+
       -- Construct full path for the new file
       local full_path = vim.fn.fnamemodify(root_dir .. "/" .. filename, ":p")
 
@@ -20,13 +25,14 @@ return {
       -- Enter insert mode
       vim.cmd("startinsert")
     end
+
     local function open_specific_file()
-      local file_path = vim.fn.stdpath('config') .. '/lua/config/spell.lua'
-      vim.cmd('edit ' .. file_path)
+      local file_path = vim.fn.stdpath("config") .. "/lua/config/spell.lua"
+      vim.cmd("edit " .. file_path)
     end
 
     -- Map this function to a key or command
-    vim.api.nvim_create_user_command('OpenSpecificFile', open_specific_file, {})
+    vim.api.nvim_create_user_command("OpenSpecificFile", open_specific_file, {})
 
     -- Set header
     dashboard.section.header.val = {
@@ -43,11 +49,16 @@ return {
     }
 
     -- Set menu
+    -- TODO: make sure to transform this to fzf-lua now!
     dashboard.section.buttons.val = {
       dashboard.button("n", "  > New File", new_file),
-      dashboard.button("e", "  > Toggle file explorer", "<cmd>Oil<CR>"),
-      dashboard.button("f", "󰱼  > Find File", "<cmd>lua Snacks.picker.files()<CR>"),
-      dashboard.button("w", "  > Find Word", "<cmd>lua Snacks.picker.grep()<CR>"),
+      dashboard.button("e", "  > Toggle file explorer", "<cmd>lua Snacks.explorer()<CR>"),
+      dashboard.button("f", "󰱼  > Find File", function()
+        require("fzf-lua").files()
+      end),
+      dashboard.button("w", "  > Find Word", function()
+        require("fzf-lua").live_grep()
+      end),
       dashboard.button("g", "󰓆  > Spelling Config", open_specific_file),
       dashboard.button("s", "  > Sessions", "<cmd>SessionSearch<CR>"),
       dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),

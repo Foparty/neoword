@@ -19,15 +19,9 @@ vim.keymap.set("n", "<up>", function()
     vim.cmd("Oil") -- Note: 'Oil' is used here, assuming it's a file explorer plugin. Adjust if needed.
   end
 end, { desc = "Close split or open file explorer if last window" })
-vim.keymap.set("n", "<leader>k", ":bd!<CR>:Oil<CR>", { desc = "[K]ill / close File" })
-vim.keymap.set("n", "<leader>ka", ":%bd!<CR>:Oil<CR>", { desc = "[K]ill / close File" })
 
--- NOTE: when you are used to HJKL i will change arrows for letters
--- Navigation between windows
--- vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to left window" })
--- vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to right window" })
--- vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to lower window" })
--- vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to upper window" })
+vim.keymap.set("n", "<leader>kf", ":bd!<CR>:Oil<CR>", { desc = "[K]ill current file" })
+vim.keymap.set("n", "<leader>ka", ":%bd!<CR>:Oil<CR>", { desc = "[K]ill all files" })
 
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to right window" })
@@ -39,24 +33,8 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to upper window"
 vim.keymap.set("n", "<C-]>", ":cnext<CR>", { desc = "Quickfix next" })
 vim.keymap.set("n", "<C-[>", ":cprevious<CR>", { desc = "Quickfix prev" })
 
--- NOTE: the following options will allow to move one line by one when text wrap make a long line or paragraph multi line
 
-
--- Keymap for global search and replace of word under cursor
-vim.keymap.set(
-  "n",
-  "<leader>sf",
-  [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>]],
-  { desc = "[S]ubstitute in [F]ile" }
-)
-
-vim.keymap.set(
-  "n",
-  "<leader>se",
-  [[:cfdo %s/\<<C-r><C-w>\>/<C-r><C-w>/gc | update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>]],
-  { desc = "[S]ubstitute [E]verwhere" }
-)
--- Format the current buffer using LSP
+-- Fomat the current buffer using LSP
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.format, { desc = "[R]eformat file" })
 
 -- Clear search highlight
@@ -68,7 +46,7 @@ vim.keymap.set("n", "<space>sf", ":so %<CR>", { desc = "Source current file" })
 
 
 -- Save all and quit
-vim.keymap.set("n", "<leader>q", ":wqa!<CR>", { desc = "[Q]uit after saving all" })
+vim.keymap.set("n", "<leader>qq", ":wqa!<CR>", { desc = "[Q]uit after saving all" })
 
 
 -- Close split or open file explorer if it's the last window
@@ -85,8 +63,8 @@ vim.keymap.set("n", "<leader>q", ":wqa!<CR>", { desc = "[Q]uit after saving all"
 -- Line movement
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move current line down" })
 vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move current line up" })
-vim.keymap.set("v", "<A-j>", ":m '<-2<CR>gv=gv", { desc = "Move selected lines down" })
-vim.keymap.set("v", "<A-k>", ":m '>+1<CR>gv=gv", { desc = "Move selected lines up" })
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selected lines down" })
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selected lines up" })
 
 -- Search result navigation with centering
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result and center" })
@@ -213,3 +191,23 @@ vim.api.nvim_create_user_command("CreateJournal", function()
 end, {})
 
 vim.keymap.set('n', '<leader>nj', ':CreateJournal<CR>', { desc = '[N]ew [J]ournal note' })
+vim.keymap.set({ 'n', 'x' }, '<leader>sr', function()
+  require('grug-far').open({ visualSelectionUsage = 'operate-within-range' })
+end, { desc = 'grug-far: Search within range' })
+
+-- Function to toggle between current and last buffer
+local function toggle_buffer()
+  local current_buffer = vim.api.nvim_get_current_buf()
+
+  if last_buffer == nil or last_buffer == current_buffer then
+    -- If no last buffer or same as current, jump to the previous buffer
+    vim.cmd("b#") -- Switch to the alternate buffer (last visited)
+    last_buffer = current_buffer
+  else
+    -- Switch back to the last saved buffer
+    vim.api.nvim_set_current_buf(last_buffer)
+    last_buffer = current_buffer
+  end
+end
+
+vim.keymap.set("n", "<leader>j", toggle_buffer, { noremap = true, silent = true })
