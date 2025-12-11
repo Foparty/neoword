@@ -13,3 +13,6 @@ end
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = auto_git_sync,
 })
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  callback = auto_git_sync,
+})
