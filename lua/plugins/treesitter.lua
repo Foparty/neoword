@@ -1,6 +1,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
     build = ":TSUpdate",
 
     config = function()
@@ -13,16 +14,12 @@ return {
           "markdown",
           "markdown_inline",
           "html",
-          "css",
-          "scss",
           "json",
-          "tsx",
-          "javascript",
-          "typescript",
         },
         auto_install = true,
         highlight = {
           enable = true,
+          additional_vim_regex_highlighting = false,
         },
         indent = { enable = true },
         modules = {},
@@ -37,7 +34,6 @@ return {
             node_decremental = "<Backspace>",
           },
         },
-        additional_vim_regex_highlighting = false,
       })
     end,
   },

@@ -5,7 +5,10 @@ return {
     config = function()
       local function words()
         local counts = vim.fn.wordcount()
-        return (counts.chars - 1) .. " CC / " .. counts.words .. " WC"
+        if counts.visual_words then
+          return counts.visual_chars .. " CC / " .. counts.visual_words .. " WC"
+        end
+        return counts.chars .. " CC / " .. counts.words .. " WC"
       end
       local function time()
         return os.date("%H:%M")

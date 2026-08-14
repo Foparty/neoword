@@ -8,7 +8,7 @@ vim.keymap.set("i", "kj", "<Esc>:w<CR>", { desc = "Exit insert mode and save fil
 vim.keymap.set("n", "<right>", "<C-w>v", { desc = "Split window - right" })
 vim.keymap.set("n", "<down>", "<C-w>s", { desc = "Split window - down" })
 vim.keymap.set("n", "<left>", ":w<CR>", { desc = "Save file" })
--- next will do same as <C-q> that basicly closes the window if splits or takes you to file explorer if just one buffer
+-- Close split, or open Snacks explorer if this is the last window
 vim.keymap.set("n", "<up>", function()
 	local win_count = vim.fn.winnr("$")
 	if win_count > 1 then
@@ -16,25 +16,39 @@ vim.keymap.set("n", "<up>", function()
 		vim.cmd("close")
 	else
 		vim.cmd("update")
-		vim.cmd("Oil") -- Note: 'Oil' is used here, assuming it's a file explorer plugin. Adjust if needed.
+		Snacks.explorer()
 	end
 end, { desc = "Close split or open file explorer if last window" })
 
-vim.keymap.set("n", "<leader>kf", ":bd!<CR>:Oil<CR>", { desc = "[K]ill current file" })
-vim.keymap.set("n", "<leader>ka", ":%bd!<CR>:Oil<CR>", { desc = "[K]ill all files" })
+vim.keymap.set("n", "<leader>kf", function()
+	vim.cmd("bd!")
+	Snacks.explorer()
+end, { desc = "[K]ill current file" })
+vim.keymap.set("n", "<leader>ka", function()
+	vim.cmd("%bd!")
+	Snacks.explorer()
+end, { desc = "[K]ill all files" })
 
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to upper window" })
 
--- QUICKFIX NEXT PREV
---
-vim.keymap.set("n", "<C-]>", ":cnext<CR>", { desc = "Quickfix next" })
-vim.keymap.set("n", "<C-[>", ":cprevious<CR>", { desc = "Quickfix prev" })
+-- Quickfix (do not map <C-[>; that is Escape in the terminal)
+vim.keymap.set("n", "]q", ":cnext<CR>", { desc = "Quickfix next" })
+vim.keymap.set("n", "[q", ":cprevious<CR>", { desc = "Quickfix prev" })
 
--- Fomat the current buffer using LSP
+-- Format the current buffer using LSP
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.format, { desc = "[R]eformat file" })
+
+-- Grammar / LSP diagnostics (harper, marksman)
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic" })
+vim.keymap.set("n", "]d", function()
+	vim.diagnostic.jump({ count = 1 })
+end, { desc = "Next diagnostic" })
+vim.keymap.set("n", "[d", function()
+	vim.diagnostic.jump({ count = -1 })
+end, { desc = "Previous diagnostic" })
 
 -- Clear search highlight
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
@@ -45,16 +59,6 @@ vim.keymap.set("n", "<space>sf", ":so %<CR>", { desc = "Source current file" })
 
 -- Save all and quit
 vim.keymap.set("n", "<leader>qq", ":wqa!<CR>", { desc = "[Q]uit after saving all" })
-
--- Close split or open file explorer if it's the last window
--- vim.keymap.set("n", "<C-q>", function()
---   vim.cmd("update")
---   vim.cmd("Oil")
--- end, { desc = "Close split or open file explorer if last window" })
--- vim.keymap.set("n", "<C-e>", function()
---   vim.cmd("update")
---   vim.cmd("Oil")
--- end, { desc = "Close split or open file explorer if last window" })
 
 -- Line movement
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move current line down" })
@@ -73,6 +77,17 @@ vim.keymap.set("n", "<C-b>", "<C-b>zz", { desc = "Scroll up full page and center
 
 -- Enter Zen Mode (assuming you have a ZenMode plugin installed)
 vim.keymap.set("n", "<leader>z", ":ZenMode<CR>", { desc = "[Z]en Mode" })
+
+-- Typewriter scrolling: keep the cursor vertically centered
+vim.keymap.set("n", "<leader>tt", function()
+	if vim.wo.scrolloff == 999 then
+		vim.wo.scrolloff = vim.o.scrolloff
+		vim.notify("Typewriter off")
+	else
+		vim.wo.scrolloff = 999
+		vim.notify("Typewriter on")
+	end
+end, { desc = "[T]ypewriter scroll" })
 
 -- NOTE: spell toggle and spell check options
 -- Toggle spell check
@@ -184,7 +199,8 @@ vim.api.nvim_create_user_command("CreateJournal", function()
 		vim.fn.writefile({}, expanded_filename, "b")
 		vim.cmd("edit " .. filename)
 		-- Add a default line to avoid empty buffer
-		vim.api.nvim_buf_set_lines(0, 0, -1, true, { "# New Note" })
+		local date = vim.fn.strftime("%d-%m-%Y")
+		vim.api.nvim_buf_set_lines(0, 0, -1, true, { "# " .. date })
 	end
 
 	-- Move to end of buffer, insert two new lines, and start insert mode for both cases
@@ -192,9 +208,6 @@ vim.api.nvim_create_user_command("CreateJournal", function()
 end, {})
 
 vim.keymap.set("n", "<leader>nj", ":CreateJournal<CR>", { desc = "[N]ew [J]ournal note" })
-vim.keymap.set({ "n", "x" }, "<leader>sr", function()
-	require("grug-far").open({ visualSelectionUsage = "operate-within-range" })
-end, { desc = "grug-far: Search within range" })
 
 -- Function to toggle between current and last buffer
 local function toggle_buffer()

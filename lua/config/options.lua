@@ -4,12 +4,8 @@ vim.g.maplocalleader = " " -- Set space as the local leader key
 -- Enable nerd font icons if available
 vim.g.have_nerd_font = true -- We have nerd fonts installed
 
-vim.foldenable = true
 -- Netrw (file explorer) settings
--- NOTE: if no other file explorer installed (OIL) by default uncomment next 3 lines
--- vim.g.netrw_banner = 0    -- Hide the banner in netrw
--- vim.g.netrw_liststyle = 1 -- Use tree-like view in netrw
--- vim.g.netrw_icons = 1     -- Show icons in netrw if nerd fonts are installed
+-- Snacks explorer replaces netrw; leave these commented.
 
 -- Local options
 local opt = vim.opt
@@ -51,10 +47,12 @@ opt.backspace = "indent,eol,start" -- Allow backspacing over autoindent, line br
 -- Search and command line
 opt.inccommand = "split" -- Show effects of a command incrementally in a split window
 
--- Text wrapping and cursor line
-opt.wrap = false      -- Enable text wrapping
-opt.linebreak = true  -- Wrap lines at word boundaries
-opt.cursorline = true -- Highlight the current line
+-- Text wrapping and cursor line (markdown/text ftplugins enable wrap)
+opt.wrap = false
+opt.linebreak = true
+opt.breakindent = true
+opt.showbreak = "↪ "
+opt.cursorline = true
 -- WARN: i don't recommend turning this on because after editing in neovim and moving to any other software then lines will still be 64ch
 -- opt.textwidth = 64 -- this will create a brand new line after 64 characters
 
@@ -70,11 +68,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.highlight.on_yank() -- Highlight the text that was just yanked
   end,
 })
--- markdown specific
--- BUG: can't make it to work without auto folding witch is very anoying
-vim.g.markdown_folding_disabled = 0
+-- Folding: keep manual so markdown headings do not auto-fold
+opt.foldenable = false
+opt.foldmethod = "manual"
+vim.g.markdown_folding_disabled = 1
 vim.g.vim_markdown_folding_disabled = 1
-vim.g.foldmethod = 'manual'
 
 -- vim.api.nvim_set_hl(0, "Normal", { fg = "#cccccc", bg = "#1a1a1a" })
 -- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#282835" })

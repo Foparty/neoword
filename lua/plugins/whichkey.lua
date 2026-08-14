@@ -15,11 +15,14 @@ return {
     -- Document existing key chains
     require("which-key").add({
 
+      { "<leader>d", group = "[D]ictionary / diagnostics" },
       { "<leader>f", group = "[F]ind / Search options" },
+      { "<leader>g", group = "[G]it" },
       { "<leader>l", group = "[L] Git / Sessions" },
       { "<leader>n", group = "[N]ew note or file" },
-      { "<leader>s", group = "[S]ubstitute current work locally / globaly" },
-      -- { "<leader>t", group = "[T]oggle Pencil" },
+      { "<leader>p", group = "[P]aste" },
+      { "<leader>s", group = "[S]ubstitute / search" },
+      { "<leader>t", group = "[T]oggle" },
     })
   end,
 }
