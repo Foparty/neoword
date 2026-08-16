@@ -49,13 +49,13 @@ The lockfile had drifted onto `main` while the Lua was still written for `master
 
 If `:Lazy update` ever breaks treesitter, check that the plugin is still on `master`, or migrate the config to `main` on purpose.
 
-### Writing feel
+### Writing feel (iA Writer–leaning)
 
-- Markdown and `.txt`: wrap at word boundaries, hanging indent (`breakindent`), wrap marker `↪ `.
-- `<leader>tt` toggles typewriter scroll (cursor stays vertically centered).
-- Status line word/char count uses the visual selection when you have one.
-- Twilight expands headings and paragraphs instead of dimming the whole buffer.
-- **NoNeckPain** (`<leader>cc`) is for daily centered writing. **Zen** (`<leader>z`) is for full focus.
+- Colors: **binary** paper/ink greys (`#f5f5f5` / `#1a1a1a`). Tokyo Night and Zenbones stay installed if you want `:colorscheme` back.
+- Markdown and `.txt`: wrap at word boundaries, no line numbers/signcolumn, typewriter scroll on by default (`<leader>tt` toggles).
+- Centered ~72-char column auto-enables for markdown/text (**NoNeckPain** / `<leader>cc`). **Zen** (`<leader>z`) is full focus + Twilight.
+- Status line is quiet: filename, word/char count, time.
+- `render-markdown` is muted (no heading icons/backgrounds).
 
 ### New plugins
 

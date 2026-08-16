@@ -51,21 +51,20 @@ opt.inccommand = "split" -- Show effects of a command incrementally in a split w
 opt.wrap = false
 opt.linebreak = true
 opt.breakindent = true
-opt.showbreak = "↪ "
-opt.cursorline = true
+opt.showbreak = ""
+opt.cursorline = false
 -- WARN: i don't recommend turning this on because after editing in neovim and moving to any other software then lines will still be 64ch
 -- opt.textwidth = 64 -- this will create a brand new line after 64 characters
 
--- Scrolling
-opt.scrolloff = 10 -- Keep 10 lines of context around the cursor
-
+-- Scrolling (markdown/text ftplugins use 999 for typewriter mode)
+opt.scrolloff = 10
 
 -- Autocommand to highlight text when yanked (copied)
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
   group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
   callback = function()
-    vim.highlight.on_yank() -- Highlight the text that was just yanked
+    vim.highlight.on_yank()
   end,
 })
 -- Folding: keep manual so markdown headings do not auto-fold
@@ -73,6 +72,3 @@ opt.foldenable = false
 opt.foldmethod = "manual"
 vim.g.markdown_folding_disabled = 1
 vim.g.vim_markdown_folding_disabled = 1
-
--- vim.api.nvim_set_hl(0, "Normal", { fg = "#cccccc", bg = "#1a1a1a" })
--- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#282835" })

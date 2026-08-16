@@ -1,50 +1,41 @@
 return {
   {
-    "folke/tokyonight.nvim",
+    "jackplus-xyz/binary.nvim",
     lazy = false,
     priority = 1000,
-    opts = {},
-  },
-  {
-    "jackplus-xyz/binary.nvim",
     opts = {
-      -- type = "system", -- Theme style: "system" | "light" | "dark"
-      colors = { -- Colors used for the "light" theme; reversed automatically for "dark"
-        -- ambar
-        -- bg = '#ffb400'
-
-        -- teal
-        -- bg = '#00ca9e'
-
-        -- sky
-        -- fg = "#0049C6",
-        -- bg = "#ffffff",
-
-        -- wasteland
-        -- fg = "#2CF180",
-        -- bg = "#0E1F12",
-
-        -- mcdonalds
-        -- bg = "#FFBB14",
-        -- fg = "#DB020B",
-
-        -- ia writer light
-        -- bg = '#1a1a1a',
-        -- fg = '#cccccc',
-
-        -- ia writer dark
+      -- Light paper colors; reversed automatically for dark.
+      colors = {
         fg = "#1a1a1a",
-        bg = "#cccccc",
+        bg = "#f5f5f5",
       },
       reversed_group = {},
     },
-  },
+    config = function(_, opts)
+      require("binary").setup(opts)
+      vim.cmd.colorscheme("binary")
 
+      -- Quiet spell marks (iA Writer–like soft underlines)
+      local function soft_ui()
+        vim.api.nvim_set_hl(0, "SpellBad", { undercurl = true, sp = "#9a9a9a" })
+        vim.api.nvim_set_hl(0, "SpellCap", { undercurl = true, sp = "#9a9a9a" })
+        vim.api.nvim_set_hl(0, "SpellRare", { undercurl = true, sp = "#9a9a9a" })
+        vim.api.nvim_set_hl(0, "SpellLocal", { undercurl = true, sp = "#9a9a9a" })
+        local cursor = vim.o.background == "dark" and "#252525" or "#ebebeb"
+        vim.api.nvim_set_hl(0, "CursorLine", { bg = cursor })
+      end
+      soft_ui()
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "binary",
+        callback = soft_ui,
+      })
+    end,
+  },
+  -- Kept available: :colorscheme tokyonight | zenbones
+  { "folke/tokyonight.nvim", lazy = true },
   {
-    -- https://github.com/zenbones-theme/zenbones.nvim
     "zenbones-theme/zenbones.nvim",
     dependencies = "rktjmp/lush.nvim",
-    lazy = false,
-    priority = 1000,
+    lazy = true,
   },
 }

@@ -32,6 +32,4 @@ require("lazy").setup({
   },
 })
 
--- vim.cmd([[colorscheme tokyonight]])
--- vim.cmd([[colorscheme binary]])
-vim.cmd([[colorscheme zenbones]])
+-- Colorscheme is applied in lua/plugins/colorcheme.lua (binary / iA Writer).

@@ -2,23 +2,16 @@ return {
   {
     "folke/twilight.nvim",
     config = function()
-      require("twilight").setup {
+      require("twilight").setup({
         dimming = {
-          alpha = 0.25, -- amount of dimming
-          -- we try to get the foreground from the highlight groups or fallback color
-          color = { "Normal", "#ffffff" },
-          term_bg = "#000000", -- if guibg=NONE, this will be used to calculate text color
-          inactive = false,    -- when true, other windows will be fully dimmed (unless they contain the same buffer)
+          alpha = 0.3,
+          color = { "Normal", "#1a1a1a" },
+          term_bg = "#f5f5f5",
+          inactive = true,
         },
-        context = 2,
-        treesitter = true,     -- use treesitter when available for the filetype
-        -- treesitter is used to automatically expand the visible text,
-        -- but you can further control the types of nodes that should always be fully expanded
+        context = 1,
+        treesitter = true,
         expand = {
-          "function",
-          "method",
-          "table",
-          "if_statement",
           "heading",
           "section",
           "paragraph",
@@ -26,7 +19,7 @@ return {
           "list_item",
         },
         exclude = {},
-      }
-    end
-  }
+      })
+    end,
+  },
 }
